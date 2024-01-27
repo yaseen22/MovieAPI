@@ -27,5 +27,23 @@ namespace MovieAPI.Infrastructure.Extensions
             .ValidateOnStart();
             return services;
         }
+
+        public static IServiceCollection RegisterYoutubeOptions(this IServiceCollection services, ConfigurationManager configuration)
+        {
+            services.AddOptions<MovieVideosAPIConfigurationOptions>()
+            .Bind(configuration.GetRequiredSection(MovieVideosAPIConfigurationOptions.SECTION_NAME))
+            .ValidateDataAnnotations()
+            .ValidateOnStart();
+            return services;
+        }
+
+        public static IServiceCollection ConfigureMovieVideosServices(this IServiceCollection services)
+        {
+            services.AddScoped<IMovieVideosService, MovieVideosService>();
+            services.AddScoped<IMovieVideosClient, MovieVideosClient>();
+            services.AddScoped<IMovieVideosMapper, MovieVideosMapper>();
+
+            return services;
+        }
     }
 }

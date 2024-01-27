@@ -13,6 +13,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.ConfigureServices();
 builder.Services.RegisterOmdbOptions(builder.Configuration);
 builder.Services.ConfigureMovieDetailsServices();
+builder.Services.RegisterYoutubeOptions(builder.Configuration);
+builder.Services.ConfigureMovieVideosServices();
 
 var app = builder.Build();
 
