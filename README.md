@@ -1,17 +1,17 @@
-**Overview** <br />
+# Overview <br />
 This .NET 6 project is an API that allows users to search for movie names and retrieve detailed information along with available video URLs.
 The movie details are sourced from the OMDb API, and video URLs are fetched from YouTube. The project follows a clean architecture design.
 
-**Features** <br />
+# Features <br />
 **Movie Search**: Users can search for movie names. <br />
 **Detailed Information**: Retrieve detailed movie information from OMDb API. <br />
 **Video URLs**: Fetch available video URLs from YouTube. <br />
 **Clean Architecture**: The project is structured using the clean architecture design principles. <br />
 
-**Configuration** <br />
+# Configuration <br />
 Configure the application by editing the appsettings.json file in the root directory.
 
-**Project Structure** <br />
+# Project Structure <br />
 The project follows a clean architecture design:
 
 **src**: Contains the main source code. <br />
@@ -19,11 +19,11 @@ The project follows a clean architecture design:
 **Infrastructure**: External dependencies, third-party integrations, and data access. <br />
 **Presentation**: Presentation layer (API controllers). <br />
 
-**Dependencies** <br />
+# Dependencies <br />
 - OMDB <br />
 - YouTube <br />
 
-**Technical Decisions** : <br /> 
+# Technical Decisions : <br /> 
 
 **Clean Architecture Usage** <br />
 - I used clean architecture as it promotes a clear separation of concerns by organizing code into distinct layers.
@@ -47,7 +47,7 @@ The project follows a clean architecture design:
 - I assumed that movie videos are not mandatory, so if the movie videos service (YouTube) returned nothing, the application is going to continue normally.
  
 
-**Improvements** <br />
+# Improvements <br />
 **Precise Search** <br />
 - Movie videos search can be better, for as the movie name only sometimes can be generic.
 - For example, if the user search for "Mission Impossible", the Movie Details Service (OMDB) will return result for "Mission Impossible 1", while Movie Videos Service (YouTube) will return the top videos which is about the latest mission impossible movie (2023).
