@@ -2,6 +2,7 @@
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using Microsoft.Extensions.Options;
+using MovieAPI.Application.Exceptions;
 using MovieAPI.Infrastructure.Options;
 
 namespace MovieAPI.Infrastructure.Clients
@@ -16,20 +17,27 @@ namespace MovieAPI.Infrastructure.Clients
 
         public async Task<IEnumerable<SearchResult>> GetMovieVideosAsync(string movieName)
         {
-            var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+            try
             {
-                ApiKey = _movieVideosAPIConfigurationOptions.ApiKey,
-                ApplicationName = this.GetType().ToString()
-            });
+                var youtubeService = new YouTubeService(new BaseClientService.Initializer()
+                {
+                    ApiKey = _movieVideosAPIConfigurationOptions.ApiKey,
+                    ApplicationName = this.GetType().ToString()
+                });
 
-            var searchListRequest = youtubeService.Search.List("snippet");
-            searchListRequest.Q = movieName;
-            searchListRequest.MaxResults = Constants.YOUTUBE_VIDEOS_MAX_RESULTS;
-            var searchListResponse = await searchListRequest.ExecuteAsync();
+                var searchListRequest = youtubeService.Search.List("snippet");
+                searchListRequest.Q = movieName;
+                searchListRequest.MaxResults = Constants.YOUTUBE_VIDEOS_MAX_RESULTS;
+                var searchListResponse = await searchListRequest.ExecuteAsync();
 
-            var result = searchListResponse.Items.Where(x => x.Id.Kind.Equals(Constants.YOUTUBE_VIDEOS_IDENTIFIER));
+                var result = searchListResponse.Items.Where(x => x.Id.Kind.Equals(Constants.YOUTUBE_VIDEOS_IDENTIFIER));
 
-            return result;
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new MovieVideosConnectionException(ex.Message);
+            }
         }
     }
 }

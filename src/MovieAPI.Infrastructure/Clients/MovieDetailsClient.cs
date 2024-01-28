@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MovieAPI.Application.Exceptions;
 using MovieAPI.Infrastructure.Models.MovieDetailsResponse;
 using MovieAPI.Infrastructure.Options;
 using System.Net;
@@ -27,12 +28,20 @@ namespace MovieAPI.Infrastructure.Clients
                     var response = await client.GetAsync(fullUrl);
                     response.EnsureSuccessStatusCode();
 
-                    return await response.Content.ReadFromJsonAsync<MovieDetailsResponse>();
+                    var result = await response.Content.ReadFromJsonAsync<MovieDetailsResponse>() ?? new MovieDetailsResponse();
+                    if (!result.IsValid)
+                        throw new MovieDetailsResponseException(result.Error);
+
+                    return result;
                 }
+            }
+            catch (MovieDetailsResponseException ex)
+            {
+                throw new MovieDetailsResponseException(ex.Message);
             }
             catch (Exception ex)
             {
-                return null;
+                throw new MovieDetailsConnectionException(ex.Message);
             }
         }
     }

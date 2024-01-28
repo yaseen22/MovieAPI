@@ -28,6 +28,6 @@
         public string Website { get; set; } = string.Empty;
         public string Response { get; set; } = string.Empty;
 
-        public bool IsExist() => !string.IsNullOrEmpty(Title);
+        public bool IsValid => !string.IsNullOrEmpty(Title);
     }
 }

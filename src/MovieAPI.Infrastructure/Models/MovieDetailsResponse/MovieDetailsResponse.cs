@@ -27,5 +27,9 @@
         public string Production { get; set; } = string.Empty;
         public string Website { get; set; } = string.Empty;
         public string Response { get; set; } = string.Empty;
+        public string Error { get; set; } = string.Empty;
+
+        public bool IsValid => !string.IsNullOrEmpty(Response) 
+                               && Response.Equals("True");
     }
 }

@@ -21,9 +21,9 @@ namespace MovieAPI.Services
         public async Task<MovieViewModel> GetMovieInformation(string movieName)
         {
             var movieDetails = await _movieDetailsService.GetMovieDetailsAsync(movieName);
-            if (!movieDetails.IsExist())
+            if (!movieDetails.IsValid)
             {
-                throw new MovieNotFoundException();
+                throw new MovieDetailsResponseException("Movie is invalid");
             }
 
             var movieVideos = await _movieVideosService.GetMovieVideosURLsAsync(movieName);

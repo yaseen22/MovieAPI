@@ -27,16 +27,31 @@ namespace MovieAPI.Middlewares
 
                 switch (error)
                 {
-                    case MovieNotFoundException:
+                    case MovieDetailsResponseException:
                         message = JsonSerializer.Serialize(new ErrorViewModel
                         {
-                            Title = "Movie is not found" 
+                            Title = "Error retrieving movie details",
+                            Description = error.Message
+                        });
+                        break;
+                    case MovieDetailsConnectionException:
+                        message = JsonSerializer.Serialize(new ErrorViewModel
+                        {
+                            Title = "Connection to get movie details has failed",
+                            Description = error.Message
+                        });
+                        break;
+                    case MovieVideosConnectionException:
+                        message = JsonSerializer.Serialize(new ErrorViewModel
+                        {
+                            Title = "Connection to get movie videos has failed",
+                            Description = error.Message
                         });
                         break;
                     default:
                         message = JsonSerializer.Serialize(new ErrorViewModel
                         {
-                            Title = "An error occured"
+                            Title = "An error has occured"
                         });
                         break;
                 }
