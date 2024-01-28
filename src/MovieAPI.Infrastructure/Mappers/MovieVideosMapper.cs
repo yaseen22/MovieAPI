@@ -1,5 +1,6 @@
 ﻿using Google.Apis.YouTube.v3.Data;
-using MovieAPI.Application.Entities.MovieVideos;
+using MovieAPI.Application.Entities;
+using MovieAPI.Infrastructure.Helpers;
 
 namespace MovieAPI.Infrastructure.Mappers
 {
@@ -10,7 +11,7 @@ namespace MovieAPI.Infrastructure.Mappers
             var videosIDs = searchResults.Select(id => id.Id.VideoId).ToList();
             return new MovieVideos()
             {
-                VideoURLs = videosIDs.Select(videoId => Constants.YOUTUBE_VIDEO_BASE_URL + videoId).ToList()
+                VideoURLs = videosIDs.Select(videoId => YoutubeHelper.GetYoutubeUrl(videoId)).ToList()
             };
         }
     }

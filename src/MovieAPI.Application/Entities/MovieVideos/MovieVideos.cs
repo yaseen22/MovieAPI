@@ -1,4 +1,4 @@
-﻿namespace MovieAPI.Application.Entities.MovieVideos
+﻿namespace MovieAPI.Application.Entities
 {
     public class MovieVideos
     {

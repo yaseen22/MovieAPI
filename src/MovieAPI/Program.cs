@@ -1,5 +1,7 @@
+using MovieAPI.Application.Extensions;
 using MovieAPI.Extensions;
 using MovieAPI.Infrastructure.Extensions;
+using MovieAPI.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,10 +13,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.ConfigureServices();
+builder.Services.ConfigureApplicationsServices();
 builder.Services.RegisterOmdbOptions(builder.Configuration);
 builder.Services.ConfigureMovieDetailsServices();
 builder.Services.RegisterYoutubeOptions(builder.Configuration);
 builder.Services.ConfigureMovieVideosServices();
+
+builder.Services.AddDistributedMemoryCache();
 
 var app = builder.Build();
 
@@ -24,6 +29,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseMiddleware<ErrorHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

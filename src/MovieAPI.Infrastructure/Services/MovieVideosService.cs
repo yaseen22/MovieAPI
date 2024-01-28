@@ -1,4 +1,4 @@
-﻿using MovieAPI.Application.Entities.MovieVideos;
+﻿using MovieAPI.Application.Entities;
 using MovieAPI.Application.Services;
 using MovieAPI.Infrastructure.Clients;
 using MovieAPI.Infrastructure.Mappers;

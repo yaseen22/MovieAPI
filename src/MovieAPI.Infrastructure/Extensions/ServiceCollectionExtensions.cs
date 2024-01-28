@@ -14,7 +14,9 @@ namespace MovieAPI.Infrastructure.Extensions
         {
             services.AddScoped<IMovieDetailsService, MovieDetailsService>();
             services.AddScoped<IMovieDetailsClient, MovieDetailsClient>();
+            services.Decorate<IMovieDetailsClient, CachedMovieDetailsClient>();
             services.AddScoped<IMovieDetailsMapper, MovieDetailsMapper>();
+            services.AddAutoMapper(typeof(MovieDetailsMappingProfile));
 
             return services;
         }
@@ -41,6 +43,7 @@ namespace MovieAPI.Infrastructure.Extensions
         {
             services.AddScoped<IMovieVideosService, MovieVideosService>();
             services.AddScoped<IMovieVideosClient, MovieVideosClient>();
+            services.Decorate<IMovieVideosClient, CachedMovieVideosClient>();
             services.AddScoped<IMovieVideosMapper, MovieVideosMapper>();
 
             return services;

@@ -1,4 +1,6 @@
-﻿using MovieAPI.Application.Services;
+﻿using MovieAPI.Application.Exceptions;
+using MovieAPI.Application.Services;
+using MovieAPI.Mappers;
 using MovieAPI.ViewModels;
 
 namespace MovieAPI.Services
@@ -7,23 +9,25 @@ namespace MovieAPI.Services
     {
         private readonly IMovieDetailsService _movieDetailsService;
         private readonly IMovieVideosService _movieVideosService;
+        private readonly IMovieViewModelMapper _movieViewModelMapper;
 
-        public MovieInformationService(IMovieDetailsService movieDetailsService, IMovieVideosService movieVideosService)
+        public MovieInformationService(IMovieDetailsService movieDetailsService, IMovieVideosService movieVideosService, IMovieViewModelMapper movieViewModelMapper)
         {
             _movieDetailsService = movieDetailsService;
             _movieVideosService = movieVideosService;
+            _movieViewModelMapper = movieViewModelMapper;
         }
 
         public async Task<MovieViewModel> GetMovieInformation(string movieName)
         {
             var movieDetails = await _movieDetailsService.GetMovieDetailsAsync(movieName);
-            var movieVideos = await _movieVideosService.GetMovieVideosURLsAsync(movieName);
-
-            return new MovieViewModel()
+            if (!movieDetails.IsExist())
             {
-                Title = movieDetails.Title,
-                VideoURLs = movieVideos.VideoURLs
-            };
+                throw new MovieNotFoundException();
+            }
+
+            var movieVideos = await _movieVideosService.GetMovieVideosURLsAsync(movieName);
+            return _movieViewModelMapper.MapMovieViewModel(movieDetails, movieVideos);
         }
     }
 }

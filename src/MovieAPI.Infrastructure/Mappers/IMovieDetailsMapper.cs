@@ -1,4 +1,4 @@
-﻿using MovieAPI.Application.Entities.MovieDetails;
+﻿using MovieAPI.Application.Entities;
 using MovieAPI.Infrastructure.Models.MovieDetailsResponse;
 
 namespace MovieAPI.Infrastructure.Mappers

@@ -1,5 +1,5 @@
 ﻿using Google.Apis.YouTube.v3.Data;
-using MovieAPI.Application.Entities.MovieVideos;
+using MovieAPI.Application.Entities;
 
 namespace MovieAPI.Infrastructure.Mappers
 {

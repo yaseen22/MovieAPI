@@ -1,4 +1,4 @@
-﻿using MovieAPI.Application.Entities.MovieVideos;
+﻿using MovieAPI.Application.Entities;
 
 namespace MovieAPI.Application.Services
 {
