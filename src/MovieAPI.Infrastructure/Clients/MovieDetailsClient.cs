@@ -2,7 +2,6 @@
 using MovieAPI.Application.Exceptions;
 using MovieAPI.Infrastructure.Models.MovieDetailsResponse;
 using MovieAPI.Infrastructure.Options;
-using System.Net;
 using System.Net.Http.Json;
 
 namespace MovieAPI.Infrastructure.Clients
